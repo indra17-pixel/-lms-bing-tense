@@ -248,6 +248,13 @@
     <p class="error-msg" id="intro-error">Isi nama dan pilih kelas terlebih dahulu ya.</p>
     <button class="btn" id="btn-start">Mulai belajar</button>
 
+    <div class="board" id="board-login" style="margin-top:16px;">
+      <h2 class="heading-font">Papan nilai</h2>
+      <p class="board-sub">Peringkat siswa yang sudah menyelesaikan latihan, dari skor tertinggi.</p>
+      <div class="board-body-target" id="board-body-login"><p class="board-empty">Memuat data...</p></div>
+    </div>
+  </div>
+
   <!-- SCREEN: sudah pernah mengerjakan -->
   <div class="card hidden" id="screen-blocked">
     <div class="block-icon" id="blocked-icon"></div>
@@ -343,19 +350,13 @@
     <div class="board upload-card" id="upload-card" style="margin-top:16px;">
       <h2 class="heading-font">Upload tugas (foto catatan)</h2>
       <p class="board-sub">Opsional. Boleh upload lebih dari satu foto (misalnya 2-3 halaman catatan). Foto otomatis dikecilkan dulu sebelum dikirim.</p>
-      <label for="upload-nama">Nama lengkap</label>
-      <input type="text" id="upload-nama" placeholder="Tulis nama lengkap kamu">
-      <label for="upload-kelas">Kelas</label>
-      <select id="upload-kelas">
-        <option value="">Pilih kelas</option>
-        <option value="VIII A">VIII A</option>
-        <option value="VIII B">VIII B</option>
-        <option value="VIII C">VIII C</option>
-      </select>
+      <p class="board-sub" style="margin-top:-4px;">Diupload atas nama: <b id="upload-identity-display">-</b></p>
+      <input type="hidden" id="upload-nama">
+      <input type="hidden" id="upload-kelas">
       <label for="upload-files">Pilih foto catatan</label>
       <input type="file" id="upload-files" accept="image/*" multiple capture="environment">
       <div class="file-list" id="file-list"></div>
-      <p class="error-msg" id="upload-error">Isi nama, kelas, dan pilih minimal satu foto dulu ya.</p>
+      <p class="error-msg" id="upload-error">Pilih minimal satu foto dulu ya.</p>
       <button class="btn" id="btn-upload">Upload foto catatan</button>
       <p id="upload-status" class="status-line"></p>
     </div>
@@ -613,6 +614,9 @@ document.getElementById('btn-start').addEventListener('click', () => {
   if(!nama || !kelas){ err.style.display = 'block'; return; }
   err.style.display = 'none';
   student.nama = nama; student.kelas = kelas;
+  document.getElementById('upload-nama').value = nama;
+  document.getElementById('upload-kelas').value = kelas;
+  document.getElementById('upload-identity-display').textContent = nama + ' (' + kelas + ')';
 
   const startBtn = document.getElementById('btn-start');
   startBtn.disabled = true;
