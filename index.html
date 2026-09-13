@@ -508,6 +508,21 @@ const ICON_MEDAL = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-dark
 const ICON_BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-dark)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c3-1.2 6 0 8 1.5C14 5 17 3.8 20 5v13c-3-1.2-6 0-8 1.5C10 18 7 16.8 4 18Z"/><path d="M12 6.5v12"/></svg>';
 const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
 
+/* ---- session persist: biar refresh gak balik ke login ---- */
+const SESSION_KEY = 'lms_pc_session_v1';
+function saveSession(screen, extra){
+  try{
+    const data = Object.assign({
+      nama: student.nama, kelas: student.kelas,
+      screen: screen, current: current, answers: answers
+    }, extra || {});
+    localStorage.setItem(SESSION_KEY, JSON.stringify(data));
+  }catch(e){ /* localStorage gak tersedia, lewati saja */ }
+}
+function clearSession(){
+  try{ localStorage.removeItem(SESSION_KEY); }catch(e){}
+}
+
 /* =====================================================================
    SCENE: partikel debu
    ===================================================================== */
@@ -657,6 +672,7 @@ function proceedToMateri(){
   screenIntro.classList.add('hidden');
   screenMateri.classList.remove('hidden');
   setupMateriScroll();
+  saveSession('materi');
 }
 
 /* ---- gate: harus scroll sampai bawah materi ---- */
@@ -693,6 +709,7 @@ document.getElementById('btn-confirm-start').addEventListener('click', () => {
   screenQuiz.classList.remove('hidden');
   buildProgress();
   renderItem();
+  saveSession('quiz');
 });
 
 /* ---- progress ---- */
@@ -750,6 +767,7 @@ function updateNextButton(){
   else if(item.type === 'order'){ const a = answers[current]; ready = a && a.length === item.tokens.length; }
   nextBtn.disabled = !ready;
   nextBtn.textContent = (current === ITEMS.length - 1) ? 'Selesai & kirim' : 'Lanjut';
+  saveSession('quiz');
 }
 
 /* ---- MC ---- */
@@ -930,6 +948,7 @@ function finishQuiz(){
   animateScore(skor);
 
   window._pendingResult = {nama: student.nama, kelas: student.kelas, skor: skor, benar: correctPoints, total: totalPoints};
+  saveSession('result', {skor: skor, correctPoints: correctPoints, totalPoints: totalPoints});
   sendResult(window._pendingResult);
 }
 
@@ -1103,6 +1122,50 @@ uploadBtn.addEventListener('click', async () => {
     uploadStatus.className = 'status-line fail';
   }
 });
+
+/* ---- restore session setelah refresh ---- */
+function restoreSession(){
+  let raw;
+  try{ raw = localStorage.getItem(SESSION_KEY); }catch(e){ return; }
+  if(!raw) return;
+  let data;
+  try{ data = JSON.parse(raw); }catch(e){ return; }
+  if(!data || !data.nama || !data.kelas) return;
+
+  student.nama = data.nama; student.kelas = data.kelas;
+  document.getElementById('upload-nama').value = data.nama;
+  document.getElementById('upload-kelas').value = data.kelas;
+  document.getElementById('upload-identity-display').textContent = data.nama + ' (' + data.kelas + ')';
+
+  if(data.screen === 'quiz' && Array.isArray(data.answers)){
+    current = data.current || 0;
+    answers = data.answers;
+    screenIntro.classList.add('hidden');
+    screenQuiz.classList.remove('hidden');
+    buildProgress();
+    renderItem();
+  } else if(data.screen === 'result' && typeof data.skor === 'number'){
+    screenIntro.classList.add('hidden');
+    screenResult.classList.remove('hidden');
+    let tier, icon, mood;
+    if(data.skor >= 90){ tier = 'Luar biasa!'; icon = ICON_MEDAL; mood = 'mood-90'; }
+    else if(data.skor >= 75){ tier = 'Keren, mantap!'; icon = ICON_STAR; mood = 'mood-75'; }
+    else if(data.skor >= 60){ tier = 'Lumayan, terus belajar!'; icon = ICON_STAR; mood = 'mood-60'; }
+    else { tier = 'Yuk pelajari lagi materinya!'; icon = ICON_BOOK; mood = 'mood-low'; }
+    document.getElementById('scene').classList.add(mood);
+    document.getElementById('result-icon').innerHTML = icon;
+    document.getElementById('result-tier').textContent = tier;
+    document.getElementById('result-detail').textContent = (data.correctPoints||0) + ' dari ' + (data.totalPoints||0) + ' poin benar \u2014 ' + data.nama + ' (' + data.kelas + ')';
+    document.getElementById('result-score').textContent = data.skor;
+    document.getElementById('result-status').textContent = 'Hasil ini sudah tersimpan di server sebelumnya.';
+    document.getElementById('result-status').className = 'status-line ok';
+  } else {
+    screenIntro.classList.add('hidden');
+    screenMateri.classList.remove('hidden');
+    setupMateriScroll();
+  }
+}
+restoreSession();
 </script>
 </body>
 </html>
