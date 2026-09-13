@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMS Bahasa Inggris · Present & Present Continuous Tense</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFDF8; --ink:#2B2420; --ink-soft:#6B5F52; --line:#E6D9C4;
+    --teal:#3E7A66; --teal-dark:#2A5647; --teal-tint:rgba(62,122,102,0.10);
+    --gold:#D6A94A; --gold-tint:rgba(214,169,74,0.16);
+    --brick:#B4423F; --brick-tint:rgba(180,66,63,0.09);
+    --card:#FFFEFA; --radius:14px;
+    --frame:#E4D3B4; --frame-dark:#CBB48A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#DDE9EF;
+    color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+    padding:32px 16px 64px; line-height:1.55;
+    overflow-x:hidden;
+  }
+  .heading-font{font-family:'Caveat', 'Segoe Script', cursive;}
+
+  /* ===================== SCENE: Kamar Pagi ===================== */
+  .scene{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;}
+  .scene .sky{position:absolute; inset:0; background:linear-gradient(180deg,#CFE8F5 0%, #E9F4FA 45%, #FBF7EC 100%); transition:background 1.2s ease;}
+  .scene.mood-90 .sky{background:linear-gradient(180deg,#FFE7AE 0%, #FFF3D6 45%, #FFFBF0 100%);}
+  .scene.mood-75 .sky{background:linear-gradient(180deg,#D9EDF0 0%, #EFF6E9 45%, #FCFAEC 100%);}
+  .scene.mood-60 .sky{background:linear-gradient(180deg,#D7E6EE 0%, #EAF0EE 45%, #F7F5EC 100%);}
+  .scene.mood-low .sky{background:linear-gradient(180deg,#C7D6DE 0%, #E1E7E6 45%, #F1F0E9 100%);}
+
+  .cloud{position:absolute; background:#fff; border-radius:50%; filter:blur(4px); opacity:.85;}
+  .cloud1{width:130px; height:42px; top:10%; left:-15%; box-shadow:34px 12px 0 -8px #fff, 64px 2px 0 -6px #fff, -28px 8px 0 -10px #fff; animation:driftCloud 75s linear infinite;}
+  .cloud2{width:100px; height:34px; top:20%; left:-25%; box-shadow:26px 10px 0 -6px #fff, -22px 6px 0 -8px #fff; animation:driftCloud 95s linear infinite; animation-delay:-30s;}
+  .cloud3{width:80px; height:28px; top:6%; left:-30%; box-shadow:20px 8px 0 -6px #fff; animation:driftCloud 60s linear infinite; animation-delay:-15s;}
+  @keyframes driftCloud{from{transform:translateX(0);} to{transform:translateX(140vw);}}
+
+  .light-beam{position:absolute; top:-15%; left:32%; width:42%; height:130%; background:linear-gradient(115deg, rgba(255,248,220,0) 40%, rgba(255,248,220,.55) 50%, rgba(255,248,220,0) 60%); transform:rotate(9deg); mix-blend-mode:multiply; animation:beamPulse 9s ease-in-out infinite;}
+  .scene.mood-low .light-beam{opacity:.35;}
+  @keyframes beamPulse{0%,100%{opacity:.55;} 50%{opacity:.9;}}
+
+  .dust{position:absolute; width:4px; height:4px; border-radius:50%; background:#FFF6DA; opacity:0; left:var(--x); bottom:-10px; animation:dustRise var(--dur) linear infinite; animation-delay:var(--delay);}
+  @keyframes dustRise{0%{transform:translate(0,0); opacity:0;} 10%{opacity:.85;} 90%{opacity:.4;} 100%{transform:translate(20px,-100vh); opacity:0;}}
+
+  .window-frame{position:absolute; inset:0; border:22px solid var(--frame); box-sizing:border-box;}
+  .window-frame::before{content:"";position:absolute; left:50%; top:0; bottom:0; width:16px; margin-left:-8px; background:var(--frame);}
+  .window-frame::after{content:"";position:absolute; top:40%; left:0; right:0; height:16px; margin-top:-8px; background:var(--frame);}
+
+  .curtain{position:absolute; top:0; width:17%; height:44%; background:linear-gradient(180deg,#F3D9C4,#E9C09E); border-radius:0 0 45% 45%/0 0 65% 65%; opacity:.92; transform-origin:top center;}
+  .curtain-left{left:0; animation:curtainSwayL 6.5s ease-in-out infinite;}
+  .curtain-right{right:0; transform:scaleX(-1); animation:curtainSwayR 6.5s ease-in-out infinite; animation-delay:.5s;}
+  @keyframes curtainSwayL{0%,100%{transform:rotate(-2deg);} 50%{transform:rotate(2deg);}}
+  @keyframes curtainSwayR{0%,100%{transform:scaleX(-1) rotate(-2deg);} 50%{transform:scaleX(-1) rotate(2deg);}}
+
+  .windowsill{position:absolute; left:0; right:0; bottom:0; height:24px; background:linear-gradient(180deg,#D8C4A0,#C2A97E);}
+
+  .sound-toggle{
+    position:fixed; top:14px; right:14px; z-index:5;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--card); border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:2px 2px 0 rgba(43,36,32,0.08);
+  }
+  .sound-toggle svg{width:18px; height:18px; color:var(--ink-soft);}
+  .sound-toggle.on svg{color:var(--teal-dark);}
+  /* ---- upload tugas ---- */
+  .upload-card input[type=file]{
+    width:100%; padding:10px; border:1.5px dashed var(--line); border-radius:8px;
+    font-size:13px; background:var(--paper); margin-bottom:10px; font-family:inherit;
+  }
+  .file-list{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .file-row{display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; border:1.5px solid var(--line); border-radius:7px;}
+  .file-row .f-name{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .file-row .f-status{font-family:ui-monospace, monospace; font-size:11px; flex-shrink:0;}
+  .file-row.pending .f-status{color:var(--ink-soft);}
+  .file-row.uploading .f-status{color:var(--gold);}
+  .file-row.done .f-status{color:var(--teal-dark);}
+  .file-row.error .f-status{color:var(--brick);}
+  /* ================================================================ */
+  .wrap{width:100%; max-width:680px;}
+  .masthead{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid var(--ink);}
+  .masthead h1{font-size:26px; margin:0; font-weight:700; letter-spacing:0;}
+  .masthead .tag{font-family:ui-monospace, monospace; font-size:12px; color:var(--teal-dark); background:var(--teal-tint); padding:3px 8px; border-radius:4px; white-space:nowrap;}
+  .card{background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius); padding:28px 26px; box-shadow:0 10px 32px rgba(120,92,50,0.12); position:relative; z-index:1;}
+  .board{position:relative; z-index:1;}
+  @keyframes cardEnter{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .card-anim{animation:cardEnter .32s ease;}
+  .hidden{display:none !important;}
+  label{display:block; font-size:13px; font-weight:600; margin-bottom:6px;}
+  input[type=text], select{width:100%; padding:11px 12px; border:1.5px solid var(--line); border-radius:7px; font-size:15px; font-family:inherit; background:var(--paper); color:var(--ink); margin-bottom:18px;}
+  input[type=text]:focus, select:focus{outline:none; border-color:var(--teal);}
+  .btn{display:inline-block; background:var(--teal); color:#fff; border:none; padding:13px 22px; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; width:100%; transition:background .15s, transform .1s;}
+  .btn:hover{background:var(--teal-dark);}
+  .btn:active{transform:scale(0.98);}
+  .btn:disabled{background:#B9C4C1; cursor:not-allowed;}
+  .btn.secondary{background:transparent; color:var(--teal-dark); border:1.5px solid var(--teal);}
+  .btn.secondary:hover{background:var(--teal-tint);}
+  .error-msg{color:var(--brick); font-size:13px; margin:-10px 0 14px; display:none;}
+  .subtitle{color:var(--ink-soft); font-size:14px; margin:0 0 20px;}
+  footer{text-align:center; font-size:12px; color:var(--ink-soft); margin-top:20px;}
+
+  /* ---- leaderboard ---- */
+  .board{background:var(--card); border:1.5px solid var(--ink); border-radius:var(--radius); padding:20px 22px; margin-bottom:16px;}
+  .board h2{font-size:20px; margin:0 0 2px; font-weight:700; font-family:'Caveat',cursive;}
+  .board .board-sub{font-size:12px; color:var(--ink-soft); margin:0 0 14px;}
+  .board-row{display:flex; align-items:center; gap:12px; padding:8px 0; border-top:1px solid var(--line); font-size:14px;}
+  .board-row:first-of-type{border-top:none;}
+  .board-rank{font-family:ui-monospace, monospace; font-weight:700; font-size:13px; width:26px; height:26px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:var(--teal-tint); color:var(--teal-dark); flex-shrink:0;}
+  .board-row:nth-child(1) .board-rank{background:var(--gold); color:#3a2e05;}
+  .board-row:nth-child(2) .board-rank{background:#D9D4C4; color:var(--ink);}
+  .board-row:nth-child(3) .board-rank{background:#DCB98C; color:#4a2f10;}
+  .board-name{flex:1; min-width:0;}
+  .board-name .n{font-weight:600; display:block;}
+  .board-name .k{font-size:12px; color:var(--ink-soft);}
+  .board-score{font-family:ui-monospace, monospace; font-weight:700; font-size:15px; color:var(--teal-dark); flex-shrink:0;}
+  .board-empty{font-size:13px; color:var(--ink-soft); padding:6px 0;}
+
+  /* ---- materi ---- */
+  .materi-scroll{max-height:60vh; overflow-y:auto; padding-right:6px; margin-bottom:16px; border-bottom:1.5px dashed var(--line); padding-bottom:16px;}
+  .materi-scroll h2{font-size:24px; margin:20px 0 4px; font-family:'Caveat',cursive; font-weight:700;}
+  .materi-scroll h2:first-child{margin-top:0;}
+  .materi-scroll h3{font-size:19px; margin:14px 0 4px; color:var(--teal-dark); font-family:'Caveat',cursive; font-weight:700;}
+  .materi-scroll p{font-size:14.5px; margin:0 0 10px;}
+  .materi-scroll table{width:100%; border-collapse:collapse; font-size:13.5px; margin:10px 0 16px;}
+  .materi-scroll th, .materi-scroll td{border:1px solid var(--line); padding:7px 9px; text-align:left;}
+  .materi-scroll th{background:var(--teal-tint); color:var(--teal-dark);}
+  .box{border-radius:8px; padding:12px 14px; margin:12px 0; font-size:13.5px;}
+  .box-title{font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.03em; margin-bottom:5px; display:block;}
+  .box-example{background:var(--teal-tint); border-left:4px solid var(--teal);}
+  .box-example .box-title{color:var(--teal-dark);}
+  .box-info{background:var(--gold-tint); border-left:4px solid var(--gold);}
+  .box-info .box-title{color:#7a5f0f;}
+  .box-practice{background:#fff; border:1.5px dashed var(--ink-soft);}
+  .box-practice .box-title{color:var(--ink-soft);}
+  .scroll-hint{font-size:12px; color:var(--ink-soft); text-align:center; margin:-10px 0 14px;}
+
+  /* ---- progress: kunang-kunang ---- */
+  .progress-row{display:flex; gap:6px; margin-bottom:22px; flex-wrap:wrap; align-items:center;}
+  .cell{width:9px; height:9px; border-radius:50%; background:rgba(214,169,74,0.22); transition:all .3s;}
+  .cell.done{background:var(--gold); box-shadow:0 0 6px 2px rgba(214,169,74,0.55);}
+  .cell.current{background:#FFE9B0; box-shadow:0 0 10px 4px rgba(255,233,176,0.85); animation:pulse 1.3s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.7; transform:scale(1.25);}}
+  .qmeta{font-family:ui-monospace, monospace; font-size:12px; color:var(--ink-soft); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;}
+  .qtype-badge{font-family:ui-monospace, monospace; font-size:10px; text-transform:uppercase; letter-spacing:.04em; background:var(--gold-tint); color:#7a5f0f; padding:2px 8px; border-radius:20px; font-weight:700;}
+  .qtext{font-size:17px; font-weight:700; margin:0 0 18px; line-height:1.45;}
+
+  /* ---- MC ---- */
+  .options{display:flex; flex-direction:column; gap:10px; margin-bottom:8px;}
+  .option{border:1.5px solid var(--line); border-radius:9px; padding:12px 14px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:15px; transition:border-color .12s, background .12s, transform .08s;}
+  .option:hover{border-color:var(--teal); transform:translateX(2px);}
+  .option.selected{border-color:var(--teal); background:var(--teal-tint);}
+  .option .letter{font-family:ui-monospace, monospace; font-weight:700; font-size:13px; color:var(--teal-dark); background:var(--teal-tint); width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .option.selected .letter{background:var(--teal); color:#fff;}
+
+  /* ---- TF ---- */
+  .tf-row{display:flex; gap:12px; margin-bottom:8px;}
+  .tf-btn{flex:1; border:1.5px solid var(--line); border-radius:9px; padding:22px 10px; display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; font-size:15px; font-weight:700; transition:border-color .12s, background .12s, transform .08s;}
+  .tf-btn:hover{transform:translateY(-2px);}
+  .tf-btn.tf-true.selected{border-color:var(--teal); background:var(--teal-tint); color:var(--teal-dark);}
+  .tf-btn.tf-false.selected{border-color:var(--brick); background:var(--brick-tint); color:var(--brick);}
+  .tf-btn svg{width:28px; height:28px;}
+
+  /* ---- Matching ---- */
+  .match-hint{font-size:13px; color:var(--ink-soft); margin:-8px 0 16px;}
+  .match-wrap{display:flex; gap:14px; margin-bottom:8px;}
+  .match-col{flex:1; display:flex; flex-direction:column; gap:8px;}
+  .match-card{border:1.5px solid var(--line); border-radius:8px; padding:10px 12px; font-size:14px; display:flex; align-items:center; gap:8px; cursor:pointer; transition:border-color .12s, background .12s, transform .08s; min-height:20px;}
+  .match-card .m-badge{font-family:ui-monospace, monospace; font-weight:700; font-size:12px; color:var(--teal-dark); background:var(--teal-tint); width:20px; height:20px; border-radius:5px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .match-card.awaiting{border-color:var(--gold); background:var(--gold-tint);}
+  .match-card.paired{border-color:var(--teal); background:var(--teal-tint);}
+  .match-card.disabled{opacity:.45; cursor:default;}
+  .match-card .m-tag{margin-left:auto; font-family:ui-monospace, monospace; font-size:11px; font-weight:700; color:var(--teal-dark); background:#fff; border:1px solid var(--teal); padding:1px 6px; border-radius:10px;}
+
+  /* ---- Susun kalimat ---- */
+  .order-hint{font-size:13px; color:var(--ink-soft); margin:-8px 0 14px;}
+  .order-assembled{min-height:52px; border:1.5px dashed var(--line); border-radius:8px; padding:10px; display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; align-items:flex-start;}
+  .order-assembled.empty::before{content:"Ketuk kata di bawah untuk menyusun kalimat"; color:var(--ink-soft); font-size:13px; font-style:italic;}
+  .order-bank{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}
+  .word-chip{font-family:ui-monospace, monospace; font-size:14px; font-weight:600; border:1.5px solid var(--teal); background:var(--teal-tint); color:var(--teal-dark); padding:7px 12px; border-radius:20px; cursor:pointer; transition:transform .08s;}
+  .word-chip:hover{transform:translateY(-1px);}
+  .word-chip.placed{background:#fff; border-color:var(--line); color:var(--ink-soft); cursor:default;}
+  .assembled-chip{font-family:ui-monospace, monospace; font-size:14px; font-weight:600; background:var(--teal); color:#fff; padding:7px 12px; border-radius:20px; cursor:pointer;}
+  .btn-reset{font-size:12.5px; color:var(--ink-soft); background:none; border:none; text-decoration:underline; cursor:pointer; padding:0; font-family:inherit;}
+
+  .nav-row{display:flex; gap:10px; margin-top:14px;}
+
+  /* ---- result ---- */
+  .score-block{text-align:center; padding:6px 0 4px;}
+  .score-icon{margin-bottom:6px;}
+  .score-icon svg{width:56px; height:56px;}
+  .score-num{font-family:ui-monospace, monospace; font-size:56px; font-weight:700; color:var(--teal-dark); line-height:1; margin-bottom:2px;}
+  .score-tier{font-size:24px; font-weight:700; margin-bottom:4px; font-family:'Caveat',cursive;}
+  .score-sub{color:var(--ink-soft); font-size:14px; margin-bottom:22px;}
+  .status-line{font-size:13px; text-align:center; margin-top:14px; color:var(--ink-soft);}
+  .status-line.ok{color:var(--teal-dark);}
+  .status-line.fail{color:var(--brick);}
+
+  /* ---- blocked screen ---- */
+  .block-icon{text-align:center; margin-bottom:10px;}
+  .block-icon svg{width:48px; height:48px; color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene" aria-hidden="true">
+  <div class="sky"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <div class="light-beam"></div>
+  <div class="dust-field" id="dust-field"></div>
+  <div class="window-frame"></div>
+  <div class="curtain curtain-left"></div>
+  <div class="curtain curtain-right"></div>
+  <div class="windowsill"></div>
+</div>
+
+<button class="sound-toggle" id="sound-toggle" title="Nyalakan/matikan suara" aria-label="Nyalakan atau matikan efek suara">
+  <svg id="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 9 8 9 13 4 13 20 8 15 3 15 3 9"></polygon><line x1="17" y1="8" x2="21" y2="12"></line><line x1="21" y1="8" x2="17" y2="12"></line></svg>
+</button>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <h1 class="heading-font">LMS Bahasa Inggris</h1>
+    <span class="tag">Present &amp; Present Continuous Tense</span>
+  </div>
+
+  <!-- SCREEN: identitas -->
+  <div class="card" id="screen-intro">
+    <p class="subtitle">Materi: Present Tense &amp; Present Continuous Tense (Nominal + Verbal), serta penerapan 5W+1H. Isi identitas untuk memulai. Baca materi sampai selesai dulu sebelum mengerjakan latihan.</p>
+    <label for="input-nama">Nama lengkap</label>
+    <input type="text" id="input-nama" placeholder="Tulis nama lengkap kamu">
+    <label for="input-kelas">Kelas</label>
+    <select id="input-kelas">
+      <option value="">Pilih kelas</option>
+      <option value="VIII A">VIII A</option>
+      <option value="VIII B">VIII B</option>
+      <option value="VIII C">VIII C</option>
+    </select>
+    <p class="error-msg" id="intro-error">Isi nama dan pilih kelas terlebih dahulu ya.</p>
+    <button class="btn" id="btn-start">Mulai belajar</button>
+  </div>
+
+  <div class="board" id="board" style="margin-top:16px;">
+    <h2 class="heading-font">Papan nilai</h2>
+    <p class="board-sub">Peringkat siswa yang sudah menyelesaikan latihan, dari skor tertinggi.</p>
+    <div id="board-body"><p class="board-empty">Memuat data...</p></div>
+  </div>
+
+  <div class="board upload-card" id="upload-card" style="margin-top:16px;">
+    <h2 class="heading-font">Upload tugas (foto catatan)</h2>
+    <p class="board-sub">Opsional. Boleh upload lebih dari satu foto (misalnya 2-3 halaman catatan). Foto otomatis dikecilkan dulu sebelum dikirim.</p>
+    <label for="upload-nama">Nama lengkap</label>
+    <input type="text" id="upload-nama" placeholder="Tulis nama lengkap kamu">
+    <label for="upload-kelas">Kelas</label>
+    <select id="upload-kelas">
+      <option value="">Pilih kelas</option>
+      <option value="VIII A">VIII A</option>
+      <option value="VIII B">VIII B</option>
+      <option value="VIII C">VIII C</option>
+    </select>
+    <label for="upload-files">Pilih foto catatan</label>
+    <input type="file" id="upload-files" accept="image/*" multiple capture="environment">
+    <div class="file-list" id="file-list"></div>
+    <p class="error-msg" id="upload-error">Isi nama, kelas, dan pilih minimal satu foto dulu ya.</p>
+    <button class="btn" id="btn-upload">Upload foto catatan</button>
+    <p id="upload-status" class="status-line"></p>
+  </div>
+
+  <!-- SCREEN: sudah pernah mengerjakan -->
+  <div class="card hidden" id="screen-blocked">
+    <div class="block-icon" id="blocked-icon"></div>
+    <div class="score-block">
+      <p style="margin-top:0; font-size:16px; font-weight:700; line-height:1.5;">Kamu tidak bisa login, karena kamu sudah pernah mengerjakan. Silahkan hubungi Guru/Admin untuk reset skor.</p>
+      <p class="score-sub" id="blocked-detail" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <!-- SCREEN: materi -->
+  <div class="card hidden" id="screen-materi">
+    <div class="materi-scroll" id="materi-scroll">
+
+      <h2>Present Tense &amp; Present Continuous Tense</h2>
+      <p>Dua bentuk waktu (tense) ini paling sering muncul berdampingan dalam percakapan sehari-hari bahasa Inggris. Present Tense dipakai untuk hal-hal yang bersifat rutin atau selalu benar, sedangkan Present Continuous Tense dipakai untuk hal yang sedang terjadi tepat saat kita berbicara. Memahami perbedaannya membantu kamu bercerita dengan lebih tepat.</p>
+
+      <h3>1. Present Tense (Dasar)</h3>
+      <p>Present Tense memiliki dua bentuk kalimat: kalimat verbal (memakai kata kerja) dan kalimat nominal (memakai to be: am/is/are).</p>
+
+      <table>
+        <tr><th>Jenis</th><th>Rumus</th><th>Contoh</th></tr>
+        <tr><td>Verbal</td><td>S + V1 (+s/es untuk he/she/it) + O</td><td>She reads a book every night.</td></tr>
+        <tr><td>Nominal</td><td>S + am/is/are + Pelengkap</td><td>They are students.</td></tr>
+      </table>
+
+      <div class="box box-example"><span class="box-title">Contoh</span>
+        I <b>walk</b> to school every day. — He <b>watches</b> TV in the evening. — We <b>are</b> friends.
+      </div>
+
+      <p>Present Tense biasa dipakai untuk: (1) kebiasaan sehari-hari, (2) fakta umum, dan (3) kebenaran yang selalu berlaku, misalnya <i>"The sun rises in the east."</i></p>
+
+      <h3>2. Present Continuous Tense (Materi Utama)</h3>
+      <p>Present Continuous Tense dipakai untuk kegiatan yang sedang berlangsung tepat saat ini, atau sesuatu yang sedang berubah/berkembang. Bentuknya selalu memakai to be (am/is/are) diikuti kata kerja + <b>-ing</b>.</p>
+
+      <table>
+        <tr><th>Bentuk</th><th>Rumus</th><th>Contoh</th></tr>
+        <tr><td>Positif</td><td>S + am/is/are + V-ing</td><td>She is reading a book now.</td></tr>
+        <tr><td>Negatif</td><td>S + am/is/are + not + V-ing</td><td>He is not (isn't) playing football.</td></tr>
+        <tr><td>Tanya</td><td>Am/Is/Are + S + V-ing?</td><td>Are you doing your homework?</td></tr>
+      </table>
+
+      <div class="box box-example"><span class="box-title">Contoh</span>
+        I <b>am writing</b> a letter right now. — They <b>are watching</b> a movie together. — My mother <b>is cooking</b> in the kitchen.
+      </div>
+
+      <p>Present Continuous Tense dipakai untuk: (1) kegiatan yang sedang berlangsung saat berbicara, (2) situasi sementara yang sedang terjadi belakangan ini, dan (3) rencana yang sudah pasti dalam waktu dekat, misalnya <i>"We are visiting grandma this weekend."</i></p>
+
+      <div class="box box-info"><span class="box-title">Tahukah kamu?</span>
+        Ada beberapa kata kerja yang jarang dipakai dalam bentuk -ing, misalnya <b>know, like, love, want, believe</b>. Kata-kata ini biasanya tetap memakai Present Tense biasa walau menjelaskan keadaan saat ini. Contoh: <i>"I know the answer."</i> (bukan "I am knowing").
+      </div>
+
+      <h3>3. Membandingkan Keduanya</h3>
+      <table>
+        <tr><th>Present Tense</th><th>Present Continuous Tense</th></tr>
+        <tr><td>Kebiasaan / rutinitas</td><td>Sedang terjadi sekarang</td></tr>
+        <tr><td>Fakta umum / kebenaran</td><td>Situasi sementara</td></tr>
+        <tr><td>Kata kunci: always, every day, usually</td><td>Kata kunci: now, right now, at the moment</td></tr>
+      </table>
+
+      <div class="box box-practice"><span class="box-title">Latihan mandiri (tidak dinilai)</span>
+        Sebelum lanjut, coba buat 1 kalimat Present Tense dan 1 kalimat Present Continuous Tense tentang dirimu sendiri. Ucapkan atau tuliskan di buku catatanmu.
+      </div>
+
+      <h3>4. Penerapan 5W + 1H</h3>
+      <p>Kata tanya 5W+1H (What, Who, When, Where, Why, How) sering dipasangkan dengan Present Continuous Tense untuk menanyakan kegiatan yang sedang berlangsung. Rumusnya: <b>(Kata tanya) + am/is/are + Subjek + V-ing?</b></p>
+
+      <table>
+        <tr><th>Kata Tanya</th><th>Fungsi</th><th>Contoh</th></tr>
+        <tr><td>What</td><td>Menanyakan benda/kegiatan</td><td>What are you doing?</td></tr>
+        <tr><td>Who</td><td>Menanyakan orang/pelaku</td><td>Who is singing that song?</td></tr>
+        <tr><td>When</td><td>Menanyakan waktu</td><td>When are they arriving?</td></tr>
+        <tr><td>Where</td><td>Menanyakan tempat</td><td>Where is she going?</td></tr>
+        <tr><td>Why</td><td>Menanyakan alasan</td><td>Why are you laughing?</td></tr>
+        <tr><td>How</td><td>Menanyakan cara/keadaan</td><td>How is he feeling today?</td></tr>
+      </table>
+
+      <div class="box box-example"><span class="box-title">Contoh Percakapan</span>
+        A: <i>"What are you doing?"</i> B: <i>"I am doing my English homework."</i><br>
+        A: <i>"Where is your brother going?"</i> B: <i>"He is going to the market."</i>
+      </div>
+
+      <h3>Rangkuman Rumus</h3>
+      <div class="box box-info"><span class="box-title">Ingat ini</span>
+        Present Tense Verbal: S + V1(s/es) + O &nbsp;|&nbsp; Present Tense Nominal: S + am/is/are + Pelengkap<br>
+        Present Continuous: S + am/is/are + V-ing &nbsp;|&nbsp; Tanya 5W+1H: (Kata tanya) + am/is/are + S + V-ing?
+      </div>
+
+      <p style="margin-bottom:0;">Kalau sudah paham semua bagian di atas, gulir ke bawah untuk melanjutkan ke latihan.</p>
+    </div>
+    <p class="scroll-hint" id="scroll-hint">Gulir sampai akhir materi untuk membuka tombol lanjut.</p>
+    <button class="btn" id="btn-to-quiz" disabled>Lanjut ke latihan</button>
+  </div>
+
+  <!-- SCREEN: konfirmasi sebelum latihan -->
+  <div class="card hidden" id="screen-confirm">
+    <div class="block-icon" id="confirm-icon"></div>
+    <p style="text-align:center; font-size:16px; font-weight:700; line-height:1.5; margin-top:4px;">Kamu tidak bisa kembali ke materi ketika mengerjakan latihan.</p>
+    <p class="subtitle" style="text-align:center;">Pastikan kamu sudah paham materinya. Setelah latihan dimulai, tombol untuk kembali membaca materi tidak akan tersedia lagi sampai kamu selesai mengerjakan semua soal.</p>
+    <div class="nav-row" style="margin-top:4px;">
+      <button class="btn secondary" id="btn-confirm-back" style="flex:1;">Baca materi lagi</button>
+      <button class="btn" id="btn-confirm-start" style="flex:1;">Ya, saya siap. Mulai latihan</button>
+    </div>
+  </div>
+
+  <!-- SCREEN: kuis -->
+  <div class="card hidden" id="screen-quiz">
+    <div class="progress-row" id="progress-row"></div>
+    <div id="q-slot"></div>
+    <div class="nav-row">
+      <button class="btn" id="btn-next" disabled>Lanjut</button>
+    </div>
+  </div>
+
+  <!-- SCREEN: hasil -->
+  <div class="card hidden" id="screen-result">
+    <div class="score-block">
+      <div class="score-icon" id="result-icon"></div>
+      <div class="score-num" id="result-score">0</div>
+      <div class="score-tier" id="result-tier"></div>
+      <div class="score-sub" id="result-detail"></div>
+    </div>
+    <p id="result-status" class="status-line">Mengirim hasil...</p>
+    <button class="btn secondary hidden" id="btn-retry" style="margin-top:10px;">Coba kirim ulang</button>
+  </div>
+
+  <footer>SMP Negeri 2 Saketi · LMS Bahasa Inggris</footer>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjYpNLs5WLUvMDpN1hnSFhqzuflItI0egU4eboyD5tmhxk_XJ-r8uw9a2WEvJfoPOxBA/exec";
+
+/* =====================================================================
+   BANK SOAL — 25 item: mc, tf, match, order
+   ===================================================================== */
+const ITEMS = [
+  {type:"mc", q:"Manakah kalimat Present Tense (Verbal) yang benar untuk subjek \u201cShe\u201d?",
+   opts:["She go to school every day.","She goes to school every day.","She going to school every day.","She is go to school every day."], correct:1},
+
+  {type:"mc", q:"Manakah kalimat Present Tense (Nominal) yang benar untuk subjek \u201cThey\u201d?",
+   opts:["They is students.","They am students.","They are students.","They be students."], correct:2},
+
+  {type:"tf", q:"Present Continuous Tense digunakan untuk kegiatan yang sedang berlangsung saat ini.", correct:true},
+
+  {type:"mc", q:"Rumus yang tepat untuk Present Continuous Tense (positif) adalah...",
+   opts:["S + V1 + O","S + V2 + O","S + am/is/are + V-ing","S + will + V1"], correct:2},
+
+  {type:"tf", q:"Rumus Present Continuous Tense adalah S + V2 + O.", correct:false},
+
+  {type:"match", q:"Cocokkan rumus dengan jenis kalimatnya.",
+   pairs:[
+     {left:"S + V1(s/es) + O", right:"Present Tense (Verbal)"},
+     {left:"S + am/is/are + Pelengkap", right:"Present Tense (Nominal)"},
+     {left:"S + am/is/are + V-ing", right:"Present Continuous Tense (Positif)"},
+     {left:"Am/Is/Are + S + V-ing?", right:"Present Continuous Tense (Tanya)"}
+   ]},
+
+  {type:"mc", q:"Manakah kalimat Present Continuous yang benar untuk subjek \u201cHe\u201d?",
+   opts:["He is playing football now.","He are playing football now.","He playing football now.","He play football now."], correct:0},
+
+  {type:"order", q:"Susun kata berikut menjadi kalimat Present Continuous yang benar.",
+   tokens:["is", "She", "a book", "reading", "now"], correctOrder:["She","is","reading","a book","now"]},
+
+  {type:"mc", q:"Bentuk negatif dari \u201cThey are studying English.\u201d adalah...",
+   opts:["They not are studying English.","They are not studying English.","They isn't studying English.","They don't studying English."], correct:1},
+
+  {type:"tf", q:"\u201cWhere\u201d digunakan untuk menanyakan waktu.", correct:false},
+
+  {type:"mc", q:"Bentuk kalimat tanya (yes/no) dari \u201cShe is reading a book.\u201d adalah...",
+   opts:["Is she reading a book?","Does she reading a book?","She is reading a book?","Reading she is a book?"], correct:0},
+
+  {type:"order", q:"Susun kata berikut menjadi kalimat tanya (5W+1H) yang benar.",
+   tokens:["doing", "are", "What", "you", "?"], correctOrder:["What","are","you","doing","?"]},
+
+  {type:"mc", q:"Present Continuous Tense biasanya digunakan untuk menunjukkan...",
+   opts:["Kebiasaan sehari-hari","Kegiatan yang sedang berlangsung saat ini","Kejadian di masa lalu","Fakta ilmiah yang selalu benar"], correct:1},
+
+  {type:"mc", q:"Present Tense (bukan continuous) biasanya digunakan untuk menunjukkan...",
+   opts:["Kegiatan yang sedang terjadi sekarang","Kebiasaan atau fakta umum","Rencana yang sedang berlangsung","Kejadian yang baru saja selesai"], correct:1},
+
+  {type:"match", q:"Cocokkan kata tanya (5W+1H) dengan fungsinya.",
+   pairs:[
+     {left:"What", right:"Menanyakan benda atau kegiatan"},
+     {left:"Who", right:"Menanyakan orang/pelaku"},
+     {left:"When", right:"Menanyakan waktu"},
+     {left:"Where", right:"Menanyakan tempat"},
+     {left:"Why", right:"Menanyakan alasan/sebab"},
+     {left:"How", right:"Menanyakan cara atau keadaan"}
+   ]},
+
+  {type:"tf", q:"Kalimat \u201cShe is a teacher.\u201d adalah contoh kalimat nominal.", correct:true},
+
+  {type:"mc", q:"Kata tanya yang tepat untuk menanyakan tempat adalah...",
+   opts:["What","When","Where","Why"], correct:2},
+
+  {type:"order", q:"Susun kata berikut menjadi kalimat tanya yang benar.",
+   tokens:["going", "they", "Where", "are", "?"], correctOrder:["Where","are","they","going","?"]},
+
+  {type:"mc", q:"Kata tanya yang tepat untuk menanyakan alasan adalah...",
+   opts:["Why","How","Who","What"], correct:0},
+
+  {type:"tf", q:"\u201cHow\u201d hanya bisa digunakan untuk menanyakan jumlah.", correct:false},
+
+  {type:"mc", q:"Pertanyaan yang tepat untuk jawaban \u201cI am reading a novel.\u201d adalah...",
+   opts:["Who are you reading?","What are you reading?","Where are you reading?","When are you reading?"], correct:1},
+
+  {type:"match", q:"Cocokkan kalimat dengan tense yang tepat.",
+   pairs:[
+     {left:"I go to school every day.", right:"Present Tense (kebiasaan)"},
+     {left:"She is cooking in the kitchen now.", right:"Present Continuous (sedang berlangsung)"},
+     {left:"They are students.", right:"Present Tense (Nominal)"},
+     {left:"We are watching a movie right now.", right:"Present Continuous (sedang berlangsung)"}
+   ]},
+
+  {type:"mc", q:"Manakah kalimat berikut yang termasuk Present Continuous Tense?",
+   opts:["My father works in a hospital.","My father is working in the hospital now.","My father worked in a hospital.","My father will work in a hospital."], correct:1},
+
+  {type:"order", q:"Susun kata berikut menjadi kalimat negatif yang benar.",
+   tokens:["working", "isn't", "He", "today"], correctOrder:["He","isn't","working","today"]},
+
+  {type:"order", q:"Susun kata berikut menjadi kalimat Present Tense yang benar.",
+   tokens:["breakfast", "usually", "He", "eats", "at seven"], correctOrder:["He","usually","eats","breakfast","at seven"]}
+];
+
+/* =====================================================================
+   ICONS
+   ===================================================================== */
+const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+const ICON_CROSS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+const ICON_STAR = '<svg viewBox="0 0 24 24" fill="var(--gold)" stroke="none"><polygon points="12,2 15,9 22,9.5 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9.5 9,9"/></svg>';
+const ICON_MEDAL = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-dark)" stroke-width="1.8"><circle cx="12" cy="15" r="6" fill="var(--gold-tint)"/><path d="M9 4 L7 10 M15 4 L17 10" stroke-linecap="round"/><circle cx="12" cy="15" r="2.4" fill="var(--gold)" stroke="none"/></svg>';
+const ICON_BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-dark)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c3-1.2 6 0 8 1.5C14 5 17 3.8 20 5v13c-3-1.2-6 0-8 1.5C10 18 7 16.8 4 18Z"/><path d="M12 6.5v12"/></svg>';
+const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+
+/* =====================================================================
+   SCENE: partikel debu
+   ===================================================================== */
+(function setupDust(){
+  const field = document.getElementById('dust-field');
+  const count = 14;
+  for(let i=0;i<count;i++){
+    const d = document.createElement('span');
+    d.className = 'dust';
+    d.style.setProperty('--x', (20 + Math.random()*45) + '%');
+    d.style.setProperty('--dur', (10 + Math.random()*10).toFixed(1) + 's');
+    d.style.setProperty('--delay', (Math.random()*12).toFixed(1) + 's');
+    field.appendChild(d);
+  }
+})();
+
+/* =====================================================================
+   SUARA: disintesis langsung di browser, default mati
+   ===================================================================== */
+let soundOn = false;
+let audioCtx = null;
+function ensureAudio(){
+  if(!audioCtx){ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+function playTone(freqStart, freqEnd, duration, volume){
+  if(!soundOn) return;
+  const ctx = ensureAudio();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(freqStart, ctx.currentTime);
+  if(freqEnd !== freqStart) osc.frequency.exponentialRampToValueAtTime(Math.max(freqEnd,1), ctx.currentTime + duration);
+  gain.gain.setValueAtTime(volume, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(); osc.stop(ctx.currentTime + duration);
+}
+function soundTap(){ playTone(650,650,0.07,0.035); }
+function soundPage(){ playTone(480,240,0.32,0.045); }
+function soundChime(){
+  if(!soundOn) return;
+  [523,659,784].forEach((f,i) => setTimeout(() => playTone(f,f,0.28,0.045), i*100));
+}
+
+const soundToggleBtn = document.getElementById('sound-toggle');
+soundToggleBtn.addEventListener('click', () => {
+  soundOn = !soundOn;
+  soundToggleBtn.classList.toggle('on', soundOn);
+  if(soundOn){ ensureAudio(); soundTap(); }
+});
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+let student = {nama:"", kelas:""};
+let current = 0;
+let answers = new Array(ITEMS.length).fill(null);
+let matchSelected = null;
+
+const screenIntro = document.getElementById('screen-intro');
+const screenBlocked = document.getElementById('screen-blocked');
+const screenMateri = document.getElementById('screen-materi');
+const screenConfirm = document.getElementById('screen-confirm');
+const screenQuiz = document.getElementById('screen-quiz');
+const screenResult = document.getElementById('screen-result');
+const qSlot = document.getElementById('q-slot');
+const nextBtn = document.getElementById('btn-next');
+
+function hasScriptUrl(){ return SCRIPT_URL && SCRIPT_URL.indexOf('PASTE_URL') === -1; }
+
+/* ---- leaderboard ---- */
+function loadLeaderboard(){
+  const body = document.getElementById('board-body');
+  if(!hasScriptUrl()){ body.innerHTML = '<p class="board-empty">Papan nilai belum aktif (URL backend belum diisi).</p>'; return; }
+  fetch(SCRIPT_URL, {method:'GET'})
+    .then(res => res.json())
+    .then(records => {
+      if(!Array.isArray(records) || records.length === 0){ body.innerHTML = '<p class="board-empty">Belum ada siswa yang menyelesaikan latihan.</p>'; return; }
+      records.sort((a,b) => (b.skor - a.skor) || ((b.benar||0)-(a.benar||0)));
+      body.innerHTML = '';
+      records.forEach((r,i) => {
+        const row = document.createElement('div');
+        row.className = 'board-row';
+        row.innerHTML = '<div class="board-rank">'+(i+1)+'</div><div class="board-name"><span class="n"></span><span class="k"></span></div><div class="board-score">'+r.skor+'</div>';
+        row.querySelector('.n').textContent = r.nama;
+        row.querySelector('.k').textContent = r.kelas || '';
+        body.appendChild(row);
+      });
+    })
+    .catch(() => { body.innerHTML = '<p class="board-empty">Papan nilai tidak dapat dimuat saat ini.</p>'; });
+}
+loadLeaderboard();
+
+/* ---- start: cek duplikat dulu ---- */
+document.getElementById('btn-start').addEventListener('click', () => {
+  const nama = document.getElementById('input-nama').value.trim();
+  const kelas = document.getElementById('input-kelas').value;
+  const err = document.getElementById('intro-error');
+  if(!nama || !kelas){ err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  student.nama = nama; student.kelas = kelas;
+
+  const startBtn = document.getElementById('btn-start');
+  startBtn.disabled = true;
+  startBtn.textContent = 'Memeriksa...';
+
+  if(!hasScriptUrl()){
+    startBtn.disabled = false; startBtn.textContent = 'Mulai belajar';
+    proceedToMateri();
+    return;
+  }
+
+  const url = SCRIPT_URL + '?checkNama=' + encodeURIComponent(nama) + '&checkKelas=' + encodeURIComponent(kelas);
+  fetch(url, {method:'GET'})
+    .then(res => res.json())
+    .then(data => {
+      startBtn.disabled = false; startBtn.textContent = 'Mulai belajar';
+      if(data && data.found){
+        showBlocked(data);
+      } else {
+        proceedToMateri();
+      }
+    })
+    .catch(() => {
+      startBtn.disabled = false; startBtn.textContent = 'Mulai belajar';
+      proceedToMateri(); // kalau pengecekan gagal (offline dsb), tetap izinkan mulai
+    });
+});
+
+function showBlocked(data){
+  screenIntro.classList.add('hidden');
+  screenBlocked.classList.remove('hidden');
+  document.getElementById('blocked-icon').innerHTML = ICON_LOCK.replace('currentColor', 'var(--gold)');
+  document.getElementById('blocked-detail').textContent = 'Data tercatat: ' + data.nama + ' (' + data.kelas + ') \u2014 skor ' + data.skor + ', ' + data.benar + ' dari ' + data.total + ' poin benar.';
+}
+
+function proceedToMateri(){
+  soundPage();
+  screenIntro.classList.add('hidden');
+  screenMateri.classList.remove('hidden');
+  setupMateriScroll();
+}
+
+/* ---- gate: harus scroll sampai bawah materi ---- */
+function setupMateriScroll(){
+  const box = document.getElementById('materi-scroll');
+  const btn = document.getElementById('btn-to-quiz');
+  const hint = document.getElementById('scroll-hint');
+  function checkScroll(){
+    if(box.scrollTop + box.clientHeight >= box.scrollHeight - 12){
+      btn.disabled = false;
+      hint.textContent = 'Materi sudah selesai dibaca. Kamu bisa lanjut ke latihan.';
+    }
+  }
+  box.addEventListener('scroll', checkScroll);
+  checkScroll();
+}
+
+document.getElementById('btn-to-quiz').addEventListener('click', () => {
+  soundPage();
+  screenMateri.classList.add('hidden');
+  screenConfirm.classList.remove('hidden');
+  document.getElementById('confirm-icon').innerHTML = ICON_LOCK.replace('currentColor', 'var(--gold)');
+});
+
+document.getElementById('btn-confirm-back').addEventListener('click', () => {
+  soundPage();
+  screenConfirm.classList.add('hidden');
+  screenMateri.classList.remove('hidden');
+});
+
+document.getElementById('btn-confirm-start').addEventListener('click', () => {
+  soundPage();
+  screenConfirm.classList.add('hidden');
+  screenQuiz.classList.remove('hidden');
+  buildProgress();
+  renderItem();
+});
+
+/* ---- progress ---- */
+function buildProgress(){
+  const row = document.getElementById('progress-row');
+  row.innerHTML = '';
+  ITEMS.forEach(() => { const c = document.createElement('div'); c.className = 'cell'; row.appendChild(c); });
+}
+function updateProgress(){
+  document.querySelectorAll('#progress-row .cell').forEach((c,i) => {
+    c.classList.remove('done','current');
+    if(i < current) c.classList.add('done');
+    else if(i === current) c.classList.add('current');
+  });
+}
+
+/* ---- render dispatch ---- */
+function renderItem(){
+  const item = ITEMS[current];
+  updateProgress();
+  matchSelected = null;
+
+  const typeLabel = {mc:'Pilihan ganda', tf:'Benar / Salah', match:'Mencocokkan', order:'Susun kalimat'}[item.type];
+  let html = '<div class="qmeta"><span>Soal ' + (current+1) + ' / ' + ITEMS.length + '</span><span class="qtype-badge">' + typeLabel + '</span></div>';
+  html += '<p class="qtext">' + item.q + '</p>';
+
+  if(item.type === 'mc') html += '<div class="options" id="opt-wrap"></div>';
+  else if(item.type === 'tf') html += '<div class="tf-row" id="tf-wrap"></div>';
+  else if(item.type === 'match'){
+    html += '<p class="match-hint">Ketuk salah satu item di kiri, lalu ketuk pasangannya di kanan.</p>';
+    html += '<div class="match-wrap"><div class="match-col" id="match-left"></div><div class="match-col" id="match-right"></div></div>';
+  } else if(item.type === 'order'){
+    html += '<p class="order-hint">Ketuk kata-kata di bawah sesuai urutan yang benar. Ketuk kata di kotak atas untuk membatalkan.</p>';
+    html += '<div class="order-assembled empty" id="order-assembled"></div>';
+    html += '<div class="order-bank" id="order-bank"></div>';
+    html += '<button type="button" class="btn-reset" id="order-reset">Reset susunan</button>';
+  }
+
+  qSlot.innerHTML = html;
+  qSlot.classList.remove('card-anim'); void qSlot.offsetWidth; qSlot.classList.add('card-anim');
+
+  if(item.type === 'mc') renderMC(item);
+  else if(item.type === 'tf') renderTF(item);
+  else if(item.type === 'match') renderMatch(item);
+  else if(item.type === 'order') renderOrder(item);
+
+  updateNextButton();
+}
+
+function updateNextButton(){
+  const item = ITEMS[current];
+  let ready = false;
+  if(item.type === 'mc' || item.type === 'tf') ready = answers[current] !== null;
+  else if(item.type === 'match'){ const a = answers[current]; ready = a && a.every(v => v !== null); }
+  else if(item.type === 'order'){ const a = answers[current]; ready = a && a.length === item.tokens.length; }
+  nextBtn.disabled = !ready;
+  nextBtn.textContent = (current === ITEMS.length - 1) ? 'Selesai & kirim' : 'Lanjut';
+}
+
+/* ---- MC ---- */
+function renderMC(item){
+  const wrap = document.getElementById('opt-wrap');
+  const letters = ['A','B','C','D'];
+  wrap.innerHTML = '';
+  item.opts.forEach((optText,i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (answers[current] === i ? ' selected' : '');
+    div.innerHTML = '<span class="letter">'+letters[i]+'</span><span>'+optText+'</span>';
+    div.addEventListener('click', () => { soundTap(); answers[current] = i; renderItem(); });
+    wrap.appendChild(div);
+  });
+}
+
+/* ---- TF ---- */
+function renderTF(item){
+  const wrap = document.getElementById('tf-wrap');
+  wrap.innerHTML = '';
+  const trueBtn = document.createElement('div');
+  trueBtn.className = 'tf-btn tf-true' + (answers[current] === true ? ' selected' : '');
+  trueBtn.innerHTML = ICON_CHECK + '<span>Benar</span>';
+  trueBtn.addEventListener('click', () => { soundTap(); answers[current] = true; renderItem(); });
+  const falseBtn = document.createElement('div');
+  falseBtn.className = 'tf-btn tf-false' + (answers[current] === false ? ' selected' : '');
+  falseBtn.innerHTML = ICON_CROSS + '<span>Salah</span>';
+  falseBtn.addEventListener('click', () => { soundTap(); answers[current] = false; renderItem(); });
+  wrap.appendChild(trueBtn); wrap.appendChild(falseBtn);
+}
+
+/* ---- Matching ---- */
+function getShuffledRight(item){
+  if(!item._shuffled){
+    let idxs = item.pairs.map((_,i) => i);
+    for(let i = idxs.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [idxs[i],idxs[j]]=[idxs[j],idxs[i]]; }
+    item._shuffled = idxs;
+  }
+  return item._shuffled;
+}
+function renderMatch(item){
+  if(!answers[current]) answers[current] = new Array(item.pairs.length).fill(null);
+  const a = answers[current];
+  const shuffled = getShuffledRight(item);
+  const letters = ['A','B','C','D','E','F'];
+  const leftWrap = document.getElementById('match-left');
+  const rightWrap = document.getElementById('match-right');
+  leftWrap.innerHTML = ''; rightWrap.innerHTML = '';
+
+  item.pairs.forEach((pair, i) => {
+    const card = document.createElement('div');
+    let cls = 'match-card';
+    if(a[i] !== null) cls += ' paired'; else if(matchSelected === i) cls += ' awaiting';
+    card.className = cls;
+    let tag = '';
+    if(a[i] !== null){ const rightPos = shuffled.indexOf(a[i]) + 1; tag = '<span class="m-tag">'+rightPos+'</span>'; }
+    card.innerHTML = '<span class="m-badge">'+letters[i]+'</span><span>'+pair.left+'</span>'+tag;
+    card.addEventListener('click', () => {
+      soundTap();
+      if(a[i] !== null){ a[i] = null; matchSelected = i; } else { matchSelected = i; }
+      renderMatch(item);
+    });
+    leftWrap.appendChild(card);
+  });
+
+  shuffled.forEach((origIdx, pos) => {
+    const isUsed = a.includes(origIdx);
+    const card = document.createElement('div');
+    card.className = 'match-card' + (isUsed ? ' disabled paired' : '');
+    card.innerHTML = '<span class="m-badge">'+(pos+1)+'</span><span>'+item.pairs[origIdx].right+'</span>';
+    if(!isUsed){
+      card.addEventListener('click', () => {
+        if(matchSelected === null) return;
+        soundTap();
+        a[matchSelected] = origIdx; matchSelected = null;
+        renderMatch(item);
+      });
+    }
+    rightWrap.appendChild(card);
+  });
+
+  updateNextButton();
+}
+
+/* ---- Susun kalimat ---- */
+function getShuffledTokens(item){
+  if(!item._shuffledTokens){
+    let idxs = item.tokens.map((_,i) => i);
+    for(let i = idxs.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [idxs[i],idxs[j]]=[idxs[j],idxs[i]]; }
+    item._shuffledTokens = idxs;
+  }
+  return item._shuffledTokens;
+}
+function renderOrder(item){
+  if(!answers[current]) answers[current] = [];
+  const placedIdxs = answers[current]; // array of original token indices, in chosen order
+  const shuffledIdxs = getShuffledTokens(item);
+
+  const assembledWrap = document.getElementById('order-assembled');
+  const bankWrap = document.getElementById('order-bank');
+  assembledWrap.innerHTML = ''; bankWrap.innerHTML = '';
+  assembledWrap.classList.toggle('empty', placedIdxs.length === 0);
+
+  placedIdxs.forEach((origIdx, pos) => {
+    const chip = document.createElement('span');
+    chip.className = 'assembled-chip';
+    chip.textContent = item.tokens[origIdx];
+    chip.addEventListener('click', () => {
+      soundTap();
+      placedIdxs.splice(pos, 1);
+      renderOrder(item);
+    });
+    assembledWrap.appendChild(chip);
+  });
+
+  shuffledIdxs.forEach(origIdx => {
+    const used = placedIdxs.includes(origIdx);
+    if(used) return;
+    const chip = document.createElement('span');
+    chip.className = 'word-chip';
+    chip.textContent = item.tokens[origIdx];
+    chip.addEventListener('click', () => {
+      soundTap();
+      placedIdxs.push(origIdx);
+      renderOrder(item);
+    });
+    bankWrap.appendChild(chip);
+  });
+
+  document.getElementById('order-reset').onclick = () => { answers[current] = []; renderOrder(item); };
+  updateNextButton();
+}
+
+/* ---- navigation ---- */
+nextBtn.addEventListener('click', () => {
+  if(nextBtn.disabled) return;
+  soundPage();
+  if(current < ITEMS.length - 1){ current++; renderItem(); }
+  else finishQuiz();
+});
+
+/* ---- scoring ---- */
+function finishQuiz(){
+  let correctPoints = 0, totalPoints = 0;
+  ITEMS.forEach((item, idx) => {
+    if(item.type === 'match'){
+      totalPoints += item.pairs.length;
+      const a = answers[idx] || [];
+      item.pairs.forEach((_, i) => { if(a[i] === i) correctPoints++; });
+    } else if(item.type === 'order'){
+      totalPoints += 1;
+      const a = answers[idx] || [];
+      const chosenWords = a.map(origIdx => item.tokens[origIdx]);
+      const isCorrect = chosenWords.length === item.correctOrder.length &&
+        chosenWords.every((w,i) => w === item.correctOrder[i]);
+      if(isCorrect) correctPoints++;
+    } else {
+      totalPoints += 1;
+      if(answers[idx] === item.correct) correctPoints++;
+    }
+  });
+  const skor = Math.round((correctPoints/totalPoints) * 100);
+
+  screenQuiz.classList.add('hidden');
+  screenResult.classList.remove('hidden');
+
+  let tier, icon, mood;
+  if(skor >= 90){ tier = 'Luar biasa!'; icon = ICON_MEDAL; mood = 'mood-90'; }
+  else if(skor >= 75){ tier = 'Keren, mantap!'; icon = ICON_STAR; mood = 'mood-75'; }
+  else if(skor >= 60){ tier = 'Lumayan, terus belajar!'; icon = ICON_STAR; mood = 'mood-60'; }
+  else { tier = 'Yuk pelajari lagi materinya!'; icon = ICON_BOOK; mood = 'mood-low'; }
+
+  document.getElementById('scene').classList.add(mood);
+  soundChime();
+  document.getElementById('result-icon').innerHTML = icon;
+  document.getElementById('result-tier').textContent = tier;
+  document.getElementById('result-detail').textContent = correctPoints + ' dari ' + totalPoints + ' poin benar \u2014 ' + student.nama + ' (' + student.kelas + ')';
+  animateScore(skor);
+
+  window._pendingResult = {nama: student.nama, kelas: student.kelas, skor: skor, benar: correctPoints, total: totalPoints};
+  sendResult(window._pendingResult);
+}
+
+function animateScore(target){
+  const el = document.getElementById('result-score');
+  let cur = 0;
+  const step = Math.max(1, Math.round(target/24));
+  const t = setInterval(() => { cur += step; if(cur >= target){ cur = target; clearInterval(t); } el.textContent = cur; }, 20);
+}
+
+/* ---- kirim hasil dengan konfirmasi nyata dari server ---- */
+function sendResult(payload){
+  const statusEl = document.getElementById('result-status');
+  const retryBtn = document.getElementById('btn-retry');
+  retryBtn.classList.add('hidden');
+
+  if(!hasScriptUrl()){
+    statusEl.textContent = 'Catatan untuk guru: URL Google Apps Script belum diisi, jadi hasil ini belum tersimpan otomatis ke Google Sheet.';
+    statusEl.className = 'status-line fail';
+    return;
+  }
+
+  statusEl.textContent = 'Mengirim hasil ke guru...';
+  statusEl.className = 'status-line';
+
+  const body = new URLSearchParams();
+  Object.keys(payload).forEach(k => body.append(k, payload[k]));
+
+  fetch(SCRIPT_URL, {method:'POST', body: body})
+    .then(res => res.json())
+    .then(data => {
+      if(data && data.status === 'ok'){
+        statusEl.textContent = 'Hasil berhasil tersimpan di server. Kamu boleh menutup halaman ini.';
+        statusEl.className = 'status-line ok';
+        setTimeout(loadLeaderboard, 1500);
+      } else if(data && data.status === 'duplicate'){
+        statusEl.textContent = 'Hasil sebelumnya sudah tersimpan di server (skor: ' + data.skor + '). Tidak ada data ganda yang dibuat.';
+        statusEl.className = 'status-line ok';
+      } else {
+        statusEl.textContent = 'Server mengembalikan respons yang tidak dikenali. Coba kirim ulang.';
+        statusEl.className = 'status-line fail';
+        retryBtn.classList.remove('hidden');
+      }
+    })
+    .catch(() => {
+      statusEl.textContent = 'Belum ada konfirmasi dari server (kemungkinan jaringan bermasalah). Data mungkin belum tersimpan \u2014 coba kirim ulang.';
+      statusEl.className = 'status-line fail';
+      retryBtn.classList.remove('hidden');
+    });
+}
+
+document.getElementById('btn-retry').addEventListener('click', () => {
+  if(window._pendingResult) sendResult(window._pendingResult);
+});
+
+/* =====================================================================
+   UPLOAD TUGAS (foto catatan) — opsional, terpisah dari alur kuis
+   ===================================================================== */
+let selectedFiles = [];
+
+const fileInput = document.getElementById('upload-files');
+const fileListEl = document.getElementById('file-list');
+const uploadErr = document.getElementById('upload-error');
+const uploadStatus = document.getElementById('upload-status');
+const uploadBtn = document.getElementById('btn-upload');
+
+fileInput.addEventListener('change', () => {
+  selectedFiles = Array.from(fileInput.files || []);
+  renderFileList();
+});
+
+function renderFileList(){
+  fileListEl.innerHTML = '';
+  selectedFiles.forEach((file, i) => {
+    const row = document.createElement('div');
+    row.className = 'file-row pending';
+    row.id = 'file-row-' + i;
+    row.innerHTML = '<span class="f-name">' + file.name + '</span><span class="f-status">Menunggu</span>';
+    fileListEl.appendChild(row);
+  });
+}
+
+function setFileStatus(i, cls, text){
+  const row = document.getElementById('file-row-' + i);
+  if(!row) return;
+  row.className = 'file-row ' + cls;
+  row.querySelector('.f-status').textContent = text;
+}
+
+function compressImage(file, maxWidth, quality){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Gagal membaca file'));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Gagal memuat gambar'));
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if(w > maxWidth){ h = Math.round(h * maxWidth / w); w = maxWidth; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl.split(',')[1]);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+uploadBtn.addEventListener('click', async () => {
+  const nama = document.getElementById('upload-nama').value.trim();
+  const kelas = document.getElementById('upload-kelas').value;
+
+  if(!nama || !kelas || selectedFiles.length === 0){
+    uploadErr.style.display = 'block';
+    return;
+  }
+  uploadErr.style.display = 'none';
+
+  if(!hasScriptUrl()){
+    uploadStatus.textContent = 'URL backend belum diisi, jadi foto belum bisa dikirim ke Drive.';
+    uploadStatus.className = 'status-line fail';
+    return;
+  }
+
+  uploadBtn.disabled = true;
+  uploadStatus.textContent = 'Mengupload ' + selectedFiles.length + ' foto, mohon tunggu...';
+  uploadStatus.className = 'status-line';
+
+  let successCount = 0;
+
+  for(let i = 0; i < selectedFiles.length; i++){
+    const file = selectedFiles[i];
+    setFileStatus(i, 'uploading', 'Mengompres...');
+    try{
+      const base64 = await compressImage(file, 1280, 0.72);
+      setFileStatus(i, 'uploading', 'Mengirim...');
+      const body = new URLSearchParams();
+      body.append('action', 'uploadTugas');
+      body.append('nama', nama);
+      body.append('kelas', kelas);
+      body.append('fileName', (i+1) + '_' + nama.replace(/\s+/g,'_') + '_' + file.name);
+      body.append('mimeType', 'image/jpeg');
+      body.append('fileData', base64);
+
+      const res = await fetch(SCRIPT_URL, {method:'POST', body: body});
+      const data = await res.json();
+      if(data && data.status === 'ok'){
+        setFileStatus(i, 'done', 'Tersimpan');
+        successCount++;
+      } else {
+        setFileStatus(i, 'error', 'Gagal');
+      }
+    } catch(err){
+      setFileStatus(i, 'error', 'Gagal');
+    }
+  }
+
+  uploadBtn.disabled = false;
+  if(successCount === selectedFiles.length){
+    uploadStatus.textContent = 'Semua foto (' + successCount + ') berhasil terkirim ke Drive guru.';
+    uploadStatus.className = 'status-line ok';
+    soundChime();
+  } else if(successCount > 0){
+    uploadStatus.textContent = successCount + ' dari ' + selectedFiles.length + ' foto berhasil terkirim. Coba upload ulang yang gagal.';
+    uploadStatus.className = 'status-line fail';
+  } else {
+    uploadStatus.textContent = 'Upload gagal. Periksa koneksi internet lalu coba lagi.';
+    uploadStatus.className = 'status-line fail';
+  }
+});
+</script>
+</body>
+</html>
