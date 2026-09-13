@@ -1,0 +1,1 @@
+# -lms-bing-tense
